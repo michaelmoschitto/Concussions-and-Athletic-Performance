@@ -10,13 +10,14 @@ def feature_num_to_name(indicies, df):
     return list(map(lambda i: cols[i], indicies))
 
 class FeatureSelector:
-    def __init__(self, estimator, selection_type, floating, scoring, k_features) -> None:
+    def __init__(self, estimator, selection_type, floating, scoring, k_features, cv) -> None:
         self.estimator = estimator
         self.selection_type = selection_type
         self.selection_type = selection_type
         self.floating = floating
         self.scoring = scoring
         self.k_features = k_features
+        self.cv = cv
 
         self.selector = None
         self.results = None
@@ -36,7 +37,8 @@ class FeatureSelector:
                 forward=self.selection_type, 
                 floating=self.floating, 
                 scoring=self.scoring,
-                cv=5)
+                cv=self.cv,
+                n_jobs=-1)
 
         pipe = make_pipeline(StandardScaler(), sfs1)
 
@@ -66,7 +68,7 @@ class FeatureSelector:
             score = run["avg_score"]
 
             scores.append(score)
-            features.append(feature_names)
+            features.append(tuple(feature_names))
             
         return pd.DataFrame({"features" : features, "score" : scores, "model" : [self.estimator_name] * len(features)}).sort_values(by="score", ascending=False)
 
