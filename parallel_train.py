@@ -16,7 +16,8 @@ def parrallell_feature_selection(X, y, estimator, kwargs):
     ftsl = FeatureSelector(estimator, **kwargs)
     ftsl.fit(X, y)
     results = ftsl.get_results()
-    return results
+    print(ftsl.get_metric_dict())
+    return results, ftsl
 
 
 class NumpyEncoder(json.JSONEncoder):
@@ -57,9 +58,11 @@ class Trainer:
         This function collects the results from training and returns them as a pandas dataframe.
         """
 
+
         all_parallel_results = pd.DataFrame()
         for r in ray.get(self.result_ids):
-            res_df = r
+            res_df, sfs = r
+            print(sfs.get_metric_dict())
             all_parallel_results = pd.concat([all_parallel_results, res_df])
 
         self.output_df  = all_parallel_results.sort_values(by="score", ascending=False)
@@ -71,6 +74,7 @@ class Trainer:
             self.output_df.to_excel(f"./training_output/{filename}_{training_id}.xlsx", index=False)
         
 
-        return self.output_df
+        # return self.output_df
+        return sfs.get_metric_dict().sort_values(by="avg_score", ascending=False)
 
 
