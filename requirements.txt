@@ -67,7 +67,6 @@ scikit-learn==1.2.2
 scipy==1.10.1
 seaborn==0.12.2
 six==1.16.0
-sklearn==0.0.post1
 stack-data==0.6.2
 threadpoolctl==3.1.0
 tornado==6.2
@@ -78,5 +77,5 @@ urllib3==1.26.15
 virtualenv==20.21.0
 wcwidth==0.2.6
 widgetsnbextension==4.0.7
-xgboost==1.7.4
+xgboost==1.7.5
 zipp==3.15.0
