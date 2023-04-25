@@ -3,6 +3,8 @@ import numpy as np
 import os
 import json
 import sys
+from datetime import datetime
+
 # sys.path.insert(0,'..')
 RESULTS_DIR = "../results/"
 DATA_DIR = "../data/"
@@ -63,9 +65,16 @@ def clean_raw_data(filename=f"{DATA_DIR}Brdi_db_march.xlsx"):
     column_to_move = players_df.pop("drafted")
 
     # players_df = players_df.drop(columns=["DR Errors: V", "DR Errors: HR"])
+#     print(players_df.head())
+#     print(players_df.columns)
+    
+    # Define the reference date (June 1, 2021)
+    reference_date = datetime(2021, 6, 1)
 
+# Calculate the age in years as a decimal number
+    players_df['DOB_d'] = ((reference_date - players_df['DOB']).dt.total_seconds() / (365.25 * 24 * 60 * 60))
     # sumona_features = ['dob','weight','nConc','washer_score','RT_V','RT_HR','Delta_RT','MT_V','MT_HR','Delta_MT','TMT_V','TMT_HR','CMT_V','CMT_HR','cvRT_V','cvRT_HR','stdRT_V','stdRT_HR','Ball_Path_V','Ball_Path_HR','Delta_BallPath','FullPath_V','FullPath_HR','Delta_Fullpath','Corrective_V','Corrective_HR','PeakV_V','PeakV_HR','Delta_PV','AE_V','AE_HR','Delta_AE','VE_V','VE_HR','AbsOnAxis_HR','Delta_OnAxis','AbsOffAxis_V','AbsOffAxis_HR','Delta_OffAxis',] 
-    sumona_features = ['age as of June 1','# of concussions','previous concussions?',"NHL",'weight','bimanual score: washer','RT_V','RT_HR','Delta_RT','MT_V','MT_HR','Delta_MT','TMT_V','TMT_HR','CMT: V','CMT: HR','cvRT_V','cvRT_HR','stdRT_V','stdRT_HR','Ball Path_V','Ball Path_HR','FullPath_V','FullPath_HR','Delta_Fullpath','Corrective_V','Corrective_HR','PeakV_V','PeakV_HR','Delta_PV','AE_V','AE_HR','Delta_AE','VE_V','VE_HR','AbsOnAxis_HR','Delta_OnAxis','AbsOffAxis_V','AbsOffAxis_HR','Delta_OffAxis', 'AbsOnAxis_V'] 
+    sumona_features = ['age as of June 1', 'DOB_d', '# of concussions','previous concussions?',"NHL",'weight','bimanual score: washer','RT_V','RT_HR','Delta_RT','MT_V','MT_HR','Delta_MT','TMT_V','TMT_HR','CMT: V','CMT: HR','cvRT_V','cvRT_HR','stdRT_V','stdRT_HR','Ball Path_V','Ball Path_HR','FullPath_V','FullPath_HR','Delta_Fullpath','Corrective_V','Corrective_HR','PeakV_V','PeakV_HR','Delta_PV','AE_V','AE_HR','Delta_AE','VE_V','VE_HR','AbsOnAxis_HR','Delta_OnAxis','AbsOffAxis_V','AbsOffAxis_HR','Delta_OffAxis', 'AbsOnAxis_V'] 
     # print(players_df.columns - sumona_features)
     
     # players_df = players_df.drop(columns=list(set(players_df.columns) - set(sumona_features)))
