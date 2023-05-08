@@ -100,7 +100,7 @@ def clean_raw_data(filename=f"{DATA_DIR}Brdi_db_march.xlsx"):
 
 
 
-def create_dataset(df, target_col="NHL"):
+def create_dataset(df, target_col="previous_concussions"):
 
     # rename # of concussions to concussions
     df = df.rename(columns={"# of concussions": "concussions", "age as of June 1": "age", "previous concussions?" : "previous_concussions"})
@@ -110,8 +110,8 @@ def create_dataset(df, target_col="NHL"):
     if target_col == "NHL":
         # non_feature_cols = ["year","DOB", "draft year", "shoots", "Position", "drafted", "draft number"]
         non_feature_cols = ["drafted", "previous_concussions"]
-    elif target_col == "previous concussions?":
-        non_feature_cols = ["year","DOB", "draft year", "shoots", "Position", "drafted", "draft number", "NHL", "# of concussions"]
+    elif target_col == "previous_concussions":
+        non_feature_cols = ["drafted","NHL", "concussions"]
 
 
 
