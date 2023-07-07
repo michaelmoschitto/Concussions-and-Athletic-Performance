@@ -1,6 +1,6 @@
 # The Effects of Concussion and Visuomotor Metrics on NHL Performance: an Explainable AI Approach - RQ2
 
-This repository contains code to answer the second research question of this thesis, is NHL performance and concussion history indicators of prior concussion?
+This repository contains code to answer the second research question of this thesis, are NHL performance and concussion history indicators of prior concussion?
 
 ## Installation
 
