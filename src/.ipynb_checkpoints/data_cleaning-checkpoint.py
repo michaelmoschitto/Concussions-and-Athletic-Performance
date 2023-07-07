@@ -40,7 +40,7 @@ def height_to_inches(row):
 
 def clean_raw_data(filename=f"{DATA_DIR}Brdi_db_march.xlsx"):
     print(os.getcwd())
-    players_df = pd.read_excel(filename, engine="openpyxl").drop(columns=[123, "id", "Data Initials", "Code Name", "draft status", ])
+    players_df = pd.read_excel(f"{DATA_DIR}{filename}", engine="openpyxl").drop(columns=[123, "id", "Data Initials", "Code Name", "draft status", ])
 
     # if no prev concussions "# of concussions" = 0
     players_df.loc[players_df["previous concussions?"] == "NO", '# of concussions'] = 0
@@ -111,7 +111,7 @@ def create_dataset(df, target_col="previous_concussions"):
         # non_feature_cols = ["year","DOB", "draft year", "shoots", "Position", "drafted", "draft number"]
         non_feature_cols = ["drafted", "previous_concussions"]
     elif target_col == "previous_concussions":
-        non_feature_cols = ["drafted","NHL", "concussions"]
+        non_feature_cols = ["drafted", "concussions"]
 
 
 
