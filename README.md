@@ -56,7 +56,7 @@ dt_est_tpe, dt_train_tpe, dt_val_tpe = outer_tune_loop(model=model, param_dist=p
 
 ### Random Search
 ```python
-Tune a Decision Tree using Sklearn RandomSearch 
+# Tune a Decision Tree using Sklearn RandomSearch 
 
 # model
 model = DecisionTreeClassifier(random_state=SEED)
